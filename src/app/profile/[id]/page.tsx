@@ -13,6 +13,9 @@ interface USERDETAILS {
   email: string;
   password: string;
 }
+
+import Cookies from "js-cookie";
+
 export default function UserProfile({ params }: any) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -21,9 +24,14 @@ export default function UserProfile({ params }: any) {
   const dispatch = useDispatch();
 
   async function getDetails() {
-    const response = await axios.get("/api/me");
-    setUserId(response.data.data._id);
-    setUserDetails(response.data.data);
+    const token = Cookies.get("token");
+    console.log("arif: ", token);
+
+    if (token) {
+      const response = await axios.get(`/api/me/${token}`);
+      setUserId(response.data.data._id);
+      setUserDetails(response.data.data);
+    }
   }
   useEffect(() => {
     getDetails();

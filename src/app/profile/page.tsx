@@ -10,7 +10,7 @@ export default function ProfilePage() {
     const token = Cookies.get("token");
     console.log("arif: ", token);
     if (token) {
-      const response = await axios.get("/api/me");
+      const response = await axios.get(`/api/me/${token}`);
       setUserId(response.data.data._id);
     }
   }

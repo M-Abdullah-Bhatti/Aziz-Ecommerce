@@ -17,14 +17,19 @@ interface Order {
 }
 import React from "react";
 
+import Cookies from "js-cookie";
+
 const Orders = () => {
   const [orders, setorders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [query, setquery] = useState("");
   const [userId, setUserId] = useState("");
   async function getDetails() {
-    const response = await axios.get("/api/me");
-    setUserId(response.data.data._id);
+    const token = Cookies.get("token");
+    if (token) {
+      const response = await axios.get(`/api/me/${token}`);
+      setUserId(response.data.data._id);
+    }
   }
   const getOrders = async () => {
     getDetails();
