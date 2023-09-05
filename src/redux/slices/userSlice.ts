@@ -1,10 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import Cookies from "js-cookie";
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
-  const response = await axios.get("/api/me");
-  console.log("response: ", response);
-  return response.data;
+  const token = Cookies.get("token");
+  console.log("arif: ", token);
+  if (token) {
+    const response = await axios.get(`/api/me/${token}`);
+    return response.data;
+  }
 });
 
 const usersSlice = createSlice({

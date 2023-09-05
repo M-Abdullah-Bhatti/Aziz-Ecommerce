@@ -1,13 +1,18 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
+import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
 export default function ProfilePage() {
   const [userId, setUserId] = useState("");
   async function getDetails() {
-    const response = await axios.get("/api/me");
-    setUserId(response.data.data._id);
+    const token = Cookies.get("token");
+    console.log("arif: ", token);
+    if (token) {
+      const response = await axios.get("/api/me");
+      setUserId(response.data.data._id);
+    }
   }
   useEffect(() => {
     getDetails();

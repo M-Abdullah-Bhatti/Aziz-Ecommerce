@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       user: userExists,
     });
     response.cookies.set("token", token, {
-      httpOnly: true,
+      httpOnly: false,
     });
     return response;
   } catch (error: any) {
