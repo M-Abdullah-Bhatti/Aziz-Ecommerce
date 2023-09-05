@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import Order from "../../../models/orderModel";
-import { getDataFromToken } from "@/utils/getDataFromToken";
 // import { useId } from "react";
 export async function POST(request: NextRequest) {
   // const userID = await getDataFromToken(request);
