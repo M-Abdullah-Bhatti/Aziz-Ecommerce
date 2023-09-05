@@ -35,11 +35,15 @@ const Orders = () => {
     getDetails();
     try {
       setLoading(true);
-      const { data } = await axios.get("/api/getmyorders");
-      setorders(data.orders);
+      const token = Cookies.get("token");
 
-      console.log("datasssorder", data);
-      setLoading(false);
+      if (token) {
+        const { data } = await axios.get(`/api/getmyorders/${token}`);
+        setorders(data.orders);
+
+        console.log("datasssorder", data);
+        setLoading(false);
+      }
     } catch (error: any) {
       console.log(error);
     }
